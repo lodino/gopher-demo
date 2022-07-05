@@ -1,0 +1,307 @@
+{% extends base %}
+{% block preamble %}
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Custom Style -->
+  <link href="gopher-demo/static/css/custom.min.css" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  * {box-sizing: border-box}
+
+  /* Set height of body and the document to 100% */
+  body, html {
+    height: 200%;
+    margin: 0;
+    font-family: "Calibri";
+  }
+
+  /* Style tab links */
+  .tablink {
+    background-color: #777;
+    color: black;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 33.33%;
+    margin-bottom: 0px;
+    margin-right: 0px;
+  }
+
+  .tablink:hover {
+    background-color: #555;
+  }
+
+  /* Style the tab content (and add height:100% for full page content) */
+  .tabcontent {
+    color: black;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+  }
+
+  #Home {background-color: #f7f7f7;}
+  #Removal {background-color: #f7f7f7;}
+  #Update {background-color: #f7f7f7;}
+  </style>
+
+{% endblock %}
+
+{% block contents %}
+<button class="tablink" onclick="openPage('Home', this, '#f7f7f7')">Home</button>
+<button class="tablink" onclick="openPage('Removal', this, '#f7f7f7')" id="defaultOpen">Removal-based Explanation</button>
+<button class="tablink" onclick="openPage('Update', this, '#f7f7f7')">Update-based Explanation</button>
+
+
+<div id="Home" class="tabcontent">
+  <div class="container body">
+    <div class="main_container">
+      <!-- page content -->
+      <div class="right_col" role="main">
+
+{#        <!-- top tiles -->#}
+{#        <div class="row tile_count">#}
+{#          {% for name in stats_names %}#}
+{#          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">#}
+{#            <span class="count_top"><i class="fa fa-{{stats[name].icon}}"></i> {{ stats[name].label }}</span>#}
+{#            <div class="count">{{ stats[name].value }}</div>#}
+{#            {% set color = "green" if stats[name].change >0 else "red" %}#}
+{#            {% set dir = "asc" if stats[name].change >0 else "desc" %}#}
+{#            <span class="count_bottom"><i class="{{color}}"}><i class="fa fa-sort-{{dir}}"></i>{{ stats[name].change }}% </i> From last Week</span>#}
+{#          </div>#}
+{#          {% endfor %}#}
+{#        </div>#}
+{#        <!-- /top tiles -->#}
+
+{#        <div class="row">#}
+{##}
+{#            <div class="col-md-12 col-sm-12 col-xs-12">#}
+{#              <div class="x_panel tile fixed_height_390 overflow_hidden">#}
+{#                <div class="row x_title">#}
+{#                  <div class="col-md-6">#}
+{#                    <h3>Network Activities <small>Traffic per day</small></h3>#}
+{#                  </div>#}
+{#                </div>#}
+{#                {{ embed(roots.line) }}#}
+{#              </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+
+        <div class="row">
+
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="row">
+              <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
+                  <h2>Input</h2>
+                  <div class="clearfix"></div>
+                </div>
+                {{ embed(roots.tab1_inp) }}
+              </div>
+            </div>
+{#            <div class="row">#}
+{#              <div class="x_panel tile">#}
+{#                {{ embed(roots.tab1_sens_attr) }}#}
+{#              </div>#}
+{#            </div>#}
+          </div>
+
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="x_panel tile fixed_height_320">
+              <div class="x_title">
+                <h2>Dataset Preview</h2>
+                <div class="clearfix"></div>
+              </div>
+              {{ embed(roots.tab1_table) }}
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="x_panel tile fixed_height_320">
+              <div class="x_title">
+                <h2>Basic Information</h2>
+                <div class="clearfix"></div>
+              </div>
+              <div class="row">{{ embed(roots.tab1_metric_table) }}</div>
+              <div class="x_title"></div>
+              <div class="row">{{ embed(roots.tab1_sens_attr) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel tile fixed_height_320 overflow_hidden">
+              <div class="x_title">
+                <h2>Statistical Parity</h2>
+                <div class="clearfix"></div>
+              </div>
+              {{ embed(roots.spd_fig) }}
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel tile fixed_height_320 overflow_hidden">
+              <div class="x_title">
+                <h2>Equal Opportunity</h2>
+                <div class="clearfix"></div>
+              </div>
+              {{ embed(roots.tpr_fig) }}
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel tile fixed_height_320 overflow_hidden">
+              <div class="x_title">
+                <h2>Predictive Parity</h2>
+                <div class="clearfix"></div>
+              </div>
+              {{ embed(roots.ppr_fig) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="Removal" class="tabcontent">
+  <div class="container body">
+    <div class="main_container">
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel tile fixed_height_400 overflow_hidden">
+              <div class="x_title">
+                <h2>Settings</h2>
+                <div class="clearfix"></div>
+              </div>
+              {{ embed(roots.tab2_inp) }}
+            </div>
+          </div>
+          <div class="col-md-7 col-sm-7 col-xs-12">
+            <div class="row">
+{#              <div class="col-md-8 col-sm-8 col-xs-12">#}
+                <div class="x_panel tile fixed_height_200 overflow_hidden">
+                  <div class="x_title">
+                    <h2>Gopher Patterns</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  {{ embed(roots.tab2_table1) }}
+                </div>
+{#              </div>#}
+            </div>
+            <div class="row">
+{#              <div class="col-md-8 col-sm-8 col-xs-12">#}
+                <div class="x_panel tile fixed_height_200 overflow_hidden">
+                  <div class="x_title">
+                    <h2>FO-Tree Patterns</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  {{ embed(roots.tab2_table2) }}
+                </div>
+{#              </div>#}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_390">
+              {{ embed(roots.tab2_comp_fig) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="Update" class="tabcontent">
+  <div class="container body">
+    <div class="main_container">
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel tile">
+              <div class="x_title">
+                <h2>Pattern Selection</h2>
+                <div class="clearfix"></div>
+              </div>
+              {{ embed(roots.tab3_inp) }}
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel tile overflow_hidden">
+              <div class="x_title">
+                <h2>Load Influential Patterns</h2>
+                <div class="clearfix"></div>
+              </div>
+{#              <h5>Pattern 1:<div style="float: right">{{ embed(roots.load_expl_1) }}</div></h5>#}
+{#              {{ embed(roots.expl_1_txt) }}#}
+{#              <h5>Pattern 2:<div style="float: right">{{ embed(roots.load_expl_2) }}</div></h5>#}
+{#              {{ embed(roots.expl_2_txt) }}#}
+{#              <h5>Pattern 3:<div style="float: right">{{ embed(roots.load_expl_3) }}</div></h5>#}
+{#              {{ embed(roots.expl_3_txt) }}#}
+              {{ embed(roots.load_rmv_1) }}
+              <div class="x_title"></div>
+              {{ embed(roots.load_rmv_2) }}
+              <div class="x_title"></div>
+              {{ embed(roots.load_rmv_3) }}
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel tile overflow_hidden">
+{#              <div class="x_title">#}
+{#                <h2>Update Comparison</h2>#}
+{#                <div class="clearfix"></div>#}
+{#              </div>#}
+              {{ embed(roots.comp_tab) }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_390">
+              <div class="x_title">
+                <h2>Value Update Overview</h2>
+                <div class="clearfix"></div>
+              </div>
+              {{ embed(roots.tab3_val_fig) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+<!-- /page content -->
+
+{% endblock %}
