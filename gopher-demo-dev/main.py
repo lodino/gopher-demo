@@ -992,7 +992,7 @@ def update_pre():
     else:
         model = NeuralNetwork(input_size=X_train.shape[-1])
     model.fit(X_train, y_train)
-    torch.save(model.state_dict(), 'gopher-demo/lib/model.pth')
+    torch.save(model.state_dict(), 'gopher-demo-dev/lib/model.pth')
     metric_vals = []
     y_pred_test = model.predict_proba(X_test)
     accuracy = computeAccuracy(y_test, y_pred_test)
