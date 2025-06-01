@@ -7,11 +7,6 @@
 - Enter the directory: ```cd gopher-demo```
 - Run ```bokeh serve --show gopher-demo-dev```
 
-## Screenshots of the Demo
-<img src="gopher-demo-dev/lib/PAGE1.png" alt="screenshot1" width="800"/>
-<img src="gopher-demo-dev/lib/PAGE2.png" alt="screenshot2" width="800"/>
-<img src="gopher-demo-dev/lib/PAGE3.png" alt="screenshot3" width="800"/>
-
 ## Useful Links
 
 * [Project Website](https://gopher-sys.github.io/)
